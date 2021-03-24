@@ -1,0 +1,18 @@
+import networkx as nx
+import matplotlib.pyplot as plt
+CM=nx.DiGraph()
+CM.add_nodes_from (['CRUD','usecase','analysis phase','functional requirements','system analyst','process modelling','activity diagram','UML diagram'])
+CM.add_edges_from ([('usecase','CRUD')], label ='helps with identifying')
+CM.add_edges_from ([('activity diagram','process modelling')], label ='is used for')
+CM.add_edges_from ([('activity diagram','usecase')], label ='visualize its steps')
+CM.add_edges_from ([('usecase','analysis phase')], label ='are used in')
+CM.add_edges_from ([('system analyst','functional requirements')], label ='creates')
+CM.add_edges_from ([('usecase','system analyst')], label ='coveys users point of view')
+CM.add_edges_from ([('usecase','UML diagram')], label ='is a type of')
+CM.add_edges_from ([('activity diagram','UML diagram')], label ='is a type of')
+edgeLabels=nx.get_edge_attributes(CM,'label')
+plt.figure(1,figsize=(10,10))
+pos=nx.circular_layout(CM)
+nx.draw (CM,pos,arrows=True,node_size=10000,node_color='yellow', with_labels=True,edge_color='blue')
+nx.draw_networkx_edge_labels(CM,pos,edge_labels=edgeLabels,label_pos=0.5,font_size=10)
+plt.show()
